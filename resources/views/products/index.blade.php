@@ -17,7 +17,7 @@
         </thead>
         <tbody>
             <tr>
-                <td colspan="5"> Noproducts found.</td>
+                <td colspan="5"> Noproductsfound.</td>
             </tr>
         </tbody>
     </table>
