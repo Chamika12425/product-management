@@ -59,11 +59,14 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $product->update($request->all());
         return redirect('/products');
-
     }
 
     public function destroy(string $id)
     {
+
+        $product = Product::findOrFail($id);
+        $product->delete();
+        return redirect('/products')->with('success', 'Product Deleted Successfully!');
 
     }
 }   

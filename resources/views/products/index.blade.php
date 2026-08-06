@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+    
     <h1>Products</h1>
 
     <a href="/products/create" class="btn btn-primary">Add Product</a>
@@ -34,8 +34,16 @@
                     <td>{{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->quantity }}</td>
                     <td>
-                        <a href="/products/{{$product->id}}/edit" class="btn btn-primary">Edit</a>
-                    </td>
+                        
+                        <a href="/products/{{$product->id}}/edit" class="btn btn-primary">Edit</a>                    
+                    
+                        <form action="/products/{{$product->id}}" method="POST" class="d-inline">
+                            @csrf
+                            @method('DELETE')
+                            <button class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this item?')">Delete</button>
+                        </form>
+
+                    </td>    
                 </tr>
             @endforeach
         @endif
