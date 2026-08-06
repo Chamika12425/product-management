@@ -4,8 +4,10 @@
 
     <h1>Products</h1>
 
-    <a href="" class="btn-btn-primary">Add Products</a>
+    <a href="/products/create" class="btn btn-primary">Add Product</a>
+
     <table>
+
         <thead>
             <tr>
                 <th>ID</th>
@@ -15,11 +17,27 @@
                 <th>Quantity</th>
             </tr>
         </thead>
+
         <tbody>
+
+        @if($products->isEmpty())
             <tr>
-                <td colspan="5"> Noproductsfound.</td>
-            </tr>
+                <td colspan="5">No products found.</td>
+            </tr>                
+        @else
+            @foreach($products as $product)
+                <tr>
+                    <td>{{ $product->id }}</td>
+                    <td>{{ $product->name }}</td>
+                    <td>{{ $product->description }}</td>
+                    <td>{{ number_format($product->price, 2) }}</td>
+                    <td>{{ $product->quantity }}</td>
+                </tr>
+            @endforeach
+        @endif
+
         </tbody>
+
     </table>
     
 @endsection
