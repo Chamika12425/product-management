@@ -15,6 +15,7 @@
                 <th>Description</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Actions</th>
             </tr>
         </thead>
 
@@ -32,6 +33,9 @@
                     <td>{{ $product->description }}</td>
                     <td>{{ number_format($product->price, 2) }}</td>
                     <td>{{ $product->quantity }}</td>
+                    <td>
+                        <a href="/products/{{$product->id}}/edit" class="btn btn-primary">Edit</a>
+                    </td>
                 </tr>
             @endforeach
         @endif
