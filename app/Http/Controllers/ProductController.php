@@ -37,9 +37,21 @@ class ProductController extends Controller
         // return redirect('/products');
 
         //Method 3: Using the create method to create a new product
+        
+        $request->validate([
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:1000',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+        ]);
+        
         Product::create($request->all());
         
         return redirect('/products');
+
+
+
+
 
     }
 
@@ -56,6 +68,14 @@ class ProductController extends Controller
 
     public function update(Request $request, string $id)
     {   
+        $request->validate ([
+            'name' => 'required|max:255',
+            'description' => 'nullable|max:1000',
+            'price' => 'required|numeric|min:0',
+            'quantity' => 'required|integer|min:0',
+
+        ]);
+
         $product = Product::findOrFail($id);
         $product->update($request->all());
         return redirect('/products');

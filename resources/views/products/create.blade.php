@@ -4,6 +4,20 @@
 
     <h1>Add Product</h1>
 
+    @if ($errors->any())
+
+
+            @foreach ($errors->all() as $error)
+            <script>
+                alert(`{{ implode('\n', $errors->all()) }}`);
+            </script>    
+            @endforeach
+
+      
+
+    @endif
+
+
     <form action="/products" method="POST">
         @csrf
 
