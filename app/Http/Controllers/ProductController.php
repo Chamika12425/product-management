@@ -48,25 +48,35 @@ class ProductController extends Controller
         Product::create($request->all());
         
         return redirect()->route('products.index')->with('success', 'Product Created Successfully');
-
-
-
-
-
     }
 
-    public function show(string $id)
-    {
+    public function show(Product $product)
+    {   
+        //Method 1: Using the findOrFail method to find the product by id
+        //Use for public function show(string $id)
+        // $product = Product::findOrFail($id);
 
+        //Method 2: Using Route Model Binding to find the product by id
+        //Use for public function show(Product $product)
+        // Only below line is needed when using route model binding
+
+        return view('products.show', compact('product'));
     }
 
-    public function edit(string $id)
-    {
-        $product = Product::findOrFail($id);
+    public function edit(Product $product)
+    {   
+        //Method 1: Using the findOrFail method to find the product by id
+        //Use for public function edit(string $id)
+        // $product = Product::findOrFail($id);
+
+        //Method 2: Using Route Model Binding to find the product by id
+        //Use for public function edit(Product $product)
+        // Only below line is needed when using route model binding
+
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)   
     {   
         $request->validate ([
             'name' => 'required|max:255',
@@ -76,15 +86,18 @@ class ProductController extends Controller
 
         ]);
 
-        $product = Product::findOrFail($id);
+        // Removed the following line since we are using route model binding to get the product instance
+        // $product = Product::findOrFail($id);
+
         $product->update($request->all());
         return redirect()->route('products.index')->with('success', 'Product Updated Successfully');
     }
 
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
+        // Removed the following line since we are using route model binding to get the product instance
+        // $product = Product::findOrFail($id);
 
-        $product = Product::findOrFail($id);
         $product->delete();
         return redirect('/products')->with('success', 'Product Deleted Successfully!');
 
