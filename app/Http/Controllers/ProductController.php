@@ -40,7 +40,7 @@ class ProductController extends Controller
         
         $request->validate([
             'name' => 'required|max:255',
-            'description' => 'nullable|max:1000',
+            'description' => 'nullable|max:500',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:0',
         ]);
@@ -70,7 +70,7 @@ class ProductController extends Controller
     {   
         $request->validate ([
             'name' => 'required|max:255',
-            'description' => 'nullable|max:1000',
+            'description' => 'nullable|max:500',
             'price' => 'required|numeric|min:0',
             'quantity' => 'required|integer|min:0',
 
