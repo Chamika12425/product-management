@@ -47,7 +47,7 @@ class ProductController extends Controller
         
         Product::create($request->all());
         
-        return redirect('/products');
+        return redirect()->route('products.index')->with('success', 'Product Created Successfully');
 
 
 
@@ -78,7 +78,7 @@ class ProductController extends Controller
 
         $product = Product::findOrFail($id);
         $product->update($request->all());
-        return redirect('/products');
+        return redirect()->route('products.index')->with('success', 'Product Updated Successfully');
     }
 
     public function destroy(string $id)
