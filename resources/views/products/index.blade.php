@@ -4,6 +4,15 @@
     
     <h1>Products</h1>
 
+    <form action="{{ route('products.index') }}" method="GET">
+
+        <div class="input-group mb-3">
+            <input type="text" name="search" class="form-control" placeholder="Search Products..." value="{{ request('search') }}">
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
+        </div>
+
+    </form>
+
     <a href="{{ route('products.create') }}" class="btn btn-primary">Add Product</a>
 
     <table>
@@ -23,9 +32,22 @@
 
         @if($products->isEmpty())
             <tr>
-                <td colspan="5">No products found.</td>
-            </tr>                
+                <td colspan="5" class="text-center">
+
+                    @if(request('search'))
+
+                        No products found for "{{ request('search') }}".
+
+                    @else
+
+                        No products found.
+
+                    @endif
+                    
+                </td>
+            </tr>   
         @else
+
             @foreach($products as $product)
                 <tr>
                     <td>{{ $product->id }}</td>

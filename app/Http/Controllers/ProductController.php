@@ -7,9 +7,24 @@ use App\Models\Product;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest()->simplePaginate(2);
+        $query = Product::latest();
+
+        if ($request->filled('search')) {
+
+            $query->where(
+                'name',
+                'like',
+                '%' . $request->search . '%'
+            );
+
+        }
+
+        $products = $query
+            ->paginate(2)
+            ->withQueryString();
+
         return view('products.index', compact('products'));
     }
 
