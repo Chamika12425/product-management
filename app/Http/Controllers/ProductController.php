@@ -64,6 +64,7 @@ class ProductController extends Controller
         // ]);
         
         // Replaced $request->all() with $request->validated() to only get the validated data from the request.
+        Product::create($request->validated());
         
         return redirect()->route('products.index')->with('success', 'Product Created Successfully');
     }
