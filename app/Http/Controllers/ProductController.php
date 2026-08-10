@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Http\Requests\StoreproductRequest;
+use App\Http\Requests\UpdateProductRequest;
 
 class ProductController extends Controller
 {
@@ -33,7 +35,7 @@ class ProductController extends Controller
         return view('products.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreProductRequest $request)
     {   //Method 1: Using the create method to create a new product
 
         // $products = Product::create([
@@ -53,14 +55,15 @@ class ProductController extends Controller
 
         //Method 3: Using the create method to create a new product
         
-        $request->validate([
-            'name' => 'required|max:255',
-            'description' => 'nullable|max:500',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
-        ]);
+        //*Since we are using the StoreProductRequest, the validation is already handled there. You can see it in store(StoreProductRequest $request) method, so we don't need to validate the request here again. The validation rules are defined in the StoreProductRequest class.
+        // $request->validate([
+        //     'name' => 'required|max:255',
+        //     'description' => 'nullable|max:500',
+        //     'price' => 'required|numeric|min:0',
+        //     'quantity' => 'required|integer|min:0',
+        // ]);
         
-        Product::create($request->all());
+        // Replaced $request->all() with $request->validated() to only get the validated data from the request.
         
         return redirect()->route('products.index')->with('success', 'Product Created Successfully');
     }
@@ -91,20 +94,21 @@ class ProductController extends Controller
         return view('products.edit', compact('product'));
     }
 
-    public function update(Request $request, Product $product)   
+    public function update(UpdateProductRequest $request, Product $product)   
     {   
-        $request->validate ([
-            'name' => 'required|max:255',
-            'description' => 'nullable|max:500',
-            'price' => 'required|numeric|min:0',
-            'quantity' => 'required|integer|min:0',
+        //Remove since we use the UpdateProductRequest for validation
+        // $request->validate ([
+        //     'name' => 'required|max:255',
+        //     'description' => 'nullable|max:500',
+        //     'price' => 'required|numeric|min:0',
+        //     'quantity' => 'required|integer|min:0',
 
-        ]);
+        // ]);
 
         // Removed the following line since we are using route model binding to get the product instance
         // $product = Product::findOrFail($id);
 
-        $product->update($request->all());
+        $product->update($request->validated());
         return redirect()->route('products.index')->with('success', 'Product Updated Successfully');
     }
 
