@@ -24,7 +24,7 @@ class ProductController extends Controller
         }
 
         $products = $query
-            ->paginate(10)
+            ->paginate(20)
             ->withQueryString();
 
         return view('products.index', compact('products'));
